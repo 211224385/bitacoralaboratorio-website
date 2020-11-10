@@ -1,14 +1,31 @@
-<a href="{{ route('careers.create') }}">Nueva Carrera </a>
-<ul>
- @foreach($careers as $career)
+@extends('layouts.app')
 
- 	<li>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Carreras</div>
 
- 		<a href="{{ route('careers.edit', $career) }}"> 
- 			{{$career->label}}
- 		</a>
+                <div class="card-body">
 
- 	</li>
- @endforeach
+					<a href="{{ route('careers.create') }}">Nueva Carrera </a>
+					<ul>
+					 @foreach($careers as $career)
 
-</ul>
+					 	<li>
+
+					 		<a href="{{ route('careers.edit', $career) }}"> 
+					 			{{$career->label}}
+					 		</a>
+
+					 	</li>
+					 @endforeach
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endsection

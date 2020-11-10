@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5995727a34a32037859977963535b83",
+    "content-hash": "8502c61b33ca71338efc22e53079130c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1416,6 +1416,46 @@
                 }
             ],
             "time": "2020-10-18T11:50:25+00:00"
+        },
+        {
+            "name": "mistic100/randomcolor",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mistic100/RandomColor.php.git",
+                "reference": "394b2a6f87b7cdc2ae0bfb02dd59b9e35fd08d8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mistic100/RandomColor.php/zipball/394b2a6f87b7cdc2ae0bfb02dd59b9e35fd08d8a",
+                "reference": "394b2a6f87b7cdc2ae0bfb02dd59b9e35fd08d8a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colors\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Damien \"Mistic\" Sorel",
+                    "email": "contact@git.strangeplanet.fr",
+                    "homepage": "http://www.strangeplanet.fr"
+                }
+            ],
+            "description": "Generate attractive random colors",
+            "homepage": "https://github.com/mistic100/RandomColor.php",
+            "keywords": [
+                "color",
+                "generator",
+                "random"
+            ],
+            "time": "2018-04-16T19:31:57+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4706,6 +4746,68 @@
             "time": "2020-07-13T06:12:54+00:00"
         },
         {
+            "name": "uxweb/sweet-alert",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uxweb/sweet-alert.git",
+                "reference": "e9eb83d7d991de0fcb74398a698e0cdfef6d189d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uxweb/sweet-alert/zipball/e9eb83d7d991de0fcb74398a698e0cdfef6d189d",
+                "reference": "e9eb83d7d991de0fcb74398a698e0cdfef6d189d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "~5.0|^6.0|^7.0|^8.0",
+                "illuminate/support": "~5.0|^6.0|^7.0|^8.0",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "UxWeb\\SweetAlert\\SweetAlertServiceProvider"
+                    ],
+                    "aliases": {
+                        "Alert": "UxWeb\\SweetAlert\\SweetAlert"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "UxWeb\\SweetAlert\\": "src/SweetAlert/"
+                },
+                "files": [
+                    "src/SweetAlert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Uziel Bueno",
+                    "email": "ux.webs@gmail.com"
+                }
+            ],
+            "description": "A simple PHP package to show Sweet Alerts with the Laravel Framework",
+            "keywords": [
+                "alert",
+                "laravel",
+                "notifier",
+                "sweet"
+            ],
+            "time": "2020-09-14T23:22:32+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.2.0",
             "source": {
@@ -5214,6 +5316,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-12-12T13:22:17+00:00"
         },
         {

@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('code');
             $table->tinyInteger('role_id')->unsigned()->index();
-            $table->bigInteger('scholar_group_id')->unsigned()->index();
+            $table->bigInteger('scholar_group_id')->nullable()->unsigned()->index();
             
             $table->foreign('scholar_group_id')->references('id')->on('scholar_groups');
             

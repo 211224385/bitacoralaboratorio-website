@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class laboratory extends Model
 {
     use HasFactory;
+
+    public function workshops(){
+    	return $this->hasMany(Workshop::class);
+    }
 }

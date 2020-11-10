@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Laboratory;
+use App\Models\User;
+use App\Models\Workshop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class LaboratoriesController extends Controller
 {
@@ -111,4 +114,72 @@ class LaboratoriesController extends Controller
 
         return redirect()->route('laboratories.index');
     }
+
+    public function kiosk(laboratory $laboratory)
+    {
+        return view ('laboratories.kiosk', compact('laboratory'));
+ 
+   }
+
+   public function storeKiosk(laboratory $laboratory)
+    {
+        request()->validate([
+        'code'=>['required', 'exists:users']
+        ]);
+
+        $minutes=0;
+
+        if(request('duration') == '15m') {
+            $minutes=15;
+        } else if(request('duration') == '30m'){
+            $minutes=30;
+        } else if(request('duration') == '1h') {
+            $minutes=60;
+        } else if(request('duration') == '2h') {
+             $minutes=120;
+        } else if(request('duration') == '3h') {
+             $minutes=180;
+        }
+
+        $student=User::where('code', request('code'))->first();
+
+        Workshop::create([
+        'checked_in_at'=> now(),
+        'checked_out_at'=> now()->addMinutes($minutes),
+        'user_id'=> $student->id,
+        'administrator_id' => auth()->id(),
+        'scholar_group_id' => $student->scholar_group_id,
+        'laboratory_id' => $laboratory->id,
+
+
+
+        ]);
+        alert()->success('¡Bienvenido!');
+
+        return redirect()->back();
+        
+
+   }
+
+   public function reports (){
+   $laboratories=Laboratory::pluck('label', 'id');
+
+   if(!request()->all()){
+    return view('laboratories.reports', compact('laboratories'));
+   }
+    
+    $laboratoryVisits=Laboratory::when(request('laboratory_id'), function($query){
+            return $query->where('id', request('laboratory_id'));
+        })
+    ->with(['workshops'=> function($query){
+        return $query->whereBetween('checked_in_at', [Carbon::parse(request('start'))->startOfDay(),Carbon::parse(request('end'))->endOfDay()])
+        
+        ->with('career');
+
+
+    }])->get();
+
+   return view('laboratories.reports', compact('laboratories', 'laboratoryVisits'));
+   }
+
 }

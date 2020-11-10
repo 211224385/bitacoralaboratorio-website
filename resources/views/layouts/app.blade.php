@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" ></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -55,6 +55,18 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if(auth()->user()->role_id==1)
+                                <a class="dropdown-item" href="{{ route('laboratories.reports.index') }}">Reportes</a>
+
+                                    <a class="dropdown-item" href="{{ route('users.index') }}">Usuarios</a>
+                                    <a class="dropdown-item" href="{{ route('laboratories.index') }}">Laboratorios</a>
+                                    <a class="dropdown-item" href="{{ route('careers.index') }}">Carreras</a>
+                                    <a class="dropdown-item" href="{{ route('scholargroups.index') }}">Grupos Escolares</a>
+                            @else
+                                  <a class="dropdown-item" href="{{ route('laboratories.index') }}">Laboratorios</a>
+                                @endif
+                                    
+                            
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -76,5 +88,13 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@include('sweet::alert')
+<script>
+    $(function(){
+        @stack('scripts')
+    })
+</script>
 </body>
 </html>
