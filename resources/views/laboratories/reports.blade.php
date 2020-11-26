@@ -1,5 +1,6 @@
 @extends('layouts.app') 
 @push('scripts')
+@if(isset($laboratoryVisits))
 new Chart(document.getElementById("usageByLaboratory"), {
   type: 'bar',
   data: {
@@ -83,6 +84,7 @@ var pieChart = new Chart(document.getElementById("usageByCareer"), {
         ]
     }
 });
+@endif
 @endpush
 
 @section('content')
