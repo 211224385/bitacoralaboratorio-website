@@ -14,7 +14,7 @@
 
                     {{ Form::open(['route'=> ['scholargroups.destroy', $scholargroup], 'method' => 'DELETE']) }}
 
-                        {{ Form::submit('Eliminar') }}
+                        {{ Form::submit('Eliminar', ['class' => 'btn btn-danger float-right']) }}
                      {{Form::close() }}
 
                      @if ($errors->any())
@@ -29,47 +29,48 @@
 
 
                     {{ Form::model($scholargroup, ['route' => ['scholargroups.update', $scholargroup], 'method' => 'PATCH']) }}
-                    	{{Form::label('grade', 'Grado') }}
+                        {{Form::label('grade', 'Grado', null, ['class' => 'form-control']) }}
                     <br>
-                        {{Form::number('grade', null, ['min'=>1, 'max'=>8]) }}
+                        {{Form::number('grade', null, ['min'=>1, 'max'=>8, 'class' => 'form-control']) }}
                     <br>
                         {{Form::label('start', 'Inicio') }}
                     <br>
-                        {{Form::date('start') }}
+                        {{Form::date('start', null, ['class' => 'form-control']) }}
                     <br>
                     {{Form::label('end', 'Termino') }}
                     <br>
-                        {{Form::date('end') }}
+                        {{Form::date('end', null, ['class' => 'form-control']) }}
                     <br>
                     {{Form::label('career_id', 'Id Carrera') }}
                     <br>
-                        {{Form::select('career_id', $careers) }}
+                        {{Form::select('career_id', $careers, null, ['class' => 'form-control']) }}
                     <br>
 
                     <br>
 
-                        {{ Form::submit('Guardar') }}
+                        {{ Form::submit('Guardar', ['class' => 'btn btn-success']) }}
                      {{Form::close() }}
                       <br> 
                     <p>Aqui podrás añadir estudiantes a este grupo</p>
                      {{Form::open (['route' => ['scholargroups.students', $scholargroup]]) }}
-                     {{Form::select('student_id', $students) }}
+                     {{Form::select('student_id', $students, null, ['class' => 'form-control']) }}
                     
-                      {{ Form::submit('Agregar') }}
+                      {{ Form::submit('Agregar', ['class' => 'btn btn-success']) }}
 
                      {{Form::close() }}
 
+                     <hr>
 
                      @if($scholargroup->students->isEmpty())
                         <p>Aún no ha agregado estudiantes</p>
                      @else
-                        <ul>
+                        <ul class="list-group">
                             @foreach($scholargroup->students as $student)
-                                <li>{{ $student->code }} - {{ $student->name }}
+                                <li class="list-group-item">{{ $student->code }} - {{ $student->name }}
                                 {{ Form::open(['route'=> ['scholargroups.students.destroy', $scholargroup], 'method' => 'DELETE']) }}
 
                             {{ Form::hidden('student_id', $student->id) }}
-                        {{ Form::submit('Remover') }}
+                        {{ Form::submit('Remover', ['class' => 'btn btn-danger']) }}
                      {{Form::close() }}
 
                                 </li>

@@ -10,31 +10,31 @@
 
                 <div class="card-body">
 
-					<a href="{{ route('scholargroups.create') }}">Nuevo Grupo </a>
-					<ul>
-					 @foreach($scholargroups as $scholargroup)
+                    <a href="{{ route('scholargroups.create') }}" class="btn btn-primary">Nuevo Grupo </a>
+                    <ul class="list-group">
+                     @foreach($scholargroups as $scholargroup)
 
-					 	<li>
+                        <li class="list-group-item">
 
-					 		<a href="{{ route('scholargroups.edit', $scholargroup) }}"> 
-					 			{{$scholargroup->grade}} 
-					 			{{$scholargroup->career->label}} 
-					 			<br>
-					 			{{$scholargroup->start}} 
-					 			{{$scholargroup->end}} 
-					 			
+                            <a href="{{ route('scholargroups.edit', $scholargroup) }}"> 
+                                {{$scholargroup->grade}} 
+                                {{$scholargroup->career->label}} 
+                                <br>
+                                {{$scholargroup->start}} 
+                                {{$scholargroup->end}} 
+                                
 
 
-					 		</a>
+                            </a>
 
-					 	</li>
-					 @endforeach
+                        </li>
+                     @endforeach
 
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection

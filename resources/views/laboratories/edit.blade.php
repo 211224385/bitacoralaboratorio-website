@@ -10,11 +10,11 @@
 
                 <div class="card-body">
 
-                    <a href="{{ route('laboratories.index') }}">Regresar</a>
+                    <a href="{{ route('laboratories.index') }}" class="btn btn-secondary">Regresar</a>
 
                     {{ Form::open(['route'=> ['laboratories.destroy', $laboratory], 'method' => 'DELETE']) }}
 
-                        {{ Form::submit('Eliminar') }}
+                        {{ Form::submit('Eliminar', ['class' => 'btn btn-danger float-right']) }}
                      {{Form::close() }}
 
                      @if ($errors->any())
@@ -29,11 +29,11 @@
 
 
                     {{ Form::model($laboratory, ['route' => ['laboratories.update', $laboratory], 'method' => 'PATCH']) }}
-                    	{{Form::text('label') }}
-
+                        {{ Form::label('label', 'Nombre del laboratorio') }}
+                        {{Form::text('label', null, ['class' => 'form-control']) }}
                     <br>
 
-                        {{ Form::submit('Guardar') }}
+                        {{ Form::submit('Guardar', ['class' => 'btn btn-success']) }}
                      {{Form::close() }}
 
                  </div>

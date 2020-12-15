@@ -10,31 +10,32 @@
 
                 <div class="card-body">
 
-				<a href="{{ route('careers.index') }}">Regresar</a>
+                <a href="{{ route('careers.index') }}" class="btn btn-secondary">Regresar</a>
 
-				@if ($errors->any())
-				    <div class="alert alert-danger">
-				        <ul>
-				            @foreach ($errors->all() as $error)
-				                <li>{{ $error }}</li>
-				            @endforeach
-				        </ul>
-				    </div>
-				@endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
 
-				{{ Form::open(['route' => 'careers.store']) }}
-					{{Form::text('label') }}
+                {{ Form::open(['route' => 'careers.store']) }}
+                    {{ Form::label('label', 'Nombre de la carrera') }}
+                    {{Form::text('label', null, ['class' => 'form-control']) }}
 
-				<br>
+                <br>
 
-				    {{ Form::submit('Guardar') }}
-				 {{Form::close() }}
+                    {{ Form::submit('Guardar', ['class' => 'btn btn-success']) }}
+                 {{Form::close() }}
 
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

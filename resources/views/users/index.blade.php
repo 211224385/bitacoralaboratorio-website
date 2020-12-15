@@ -10,24 +10,23 @@
 
                 <div class="card-body">
 
-					<a href="{{ route('users.create') }}">Nuevo Usuario </a>
-					<ul>
-					 @foreach($users as $user)
+                    <a href="{{ route('users.create') }}" class="btn btn-primary">Nuevo Usuario </a>
+                    <ul class="list-group">
+                     @foreach($users as $user)
+                        <li class="list-group-item">
 
-					 	<li>
+                            <a href="{{ route('users.edit', $user) }}"> 
+                                {{$user->name}} {{$user->paternal_surname}} <small>{{$user->email}} </small>
+                            </a>
 
-					 		<a href="{{ route('users.edit', $user) }}"> 
-					 			{{$user->name}} {{$user->paternal_surname}} <small>{{$user->email}} </small>
-					 		</a>
+                        </li>
+                     @endforeach
 
-					 	</li>
-					 @endforeach
-
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection

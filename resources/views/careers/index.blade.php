@@ -9,23 +9,23 @@
 
                 <div class="card-body">
 
-					<a href="{{ route('careers.create') }}">Nueva Carrera </a>
-					<ul>
-					 @foreach($careers as $career)
+                    <a href="{{ route('careers.create') }}" class="btn btn-primary">Nueva Carrera </a>
+                    <ul class="list-group">
+                     @foreach($careers as $career)
 
-					 	<li>
+                        <li class="list-group-item"  >
 
-					 		<a href="{{ route('careers.edit', $career) }}"> 
-					 			{{$career->label}}
-					 		</a>
+                            <a href="{{ route('careers.edit', $career) }}"> 
+                                {{$career->label}}
+                            </a>
 
-					 	</li>
-					 @endforeach
+                        </li>
+                     @endforeach
 
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

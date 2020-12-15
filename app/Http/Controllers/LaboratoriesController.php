@@ -17,7 +17,7 @@ class LaboratoriesController extends Controller
      */
     public function index()
     {
-        $laboratories = laboratory::all();
+        $laboratories = Laboratory::all();
 
         return view('laboratories.index', compact('laboratories'));
     }
@@ -41,16 +41,16 @@ class LaboratoriesController extends Controller
     public function store(Request $request)
     {
 
-      request()->validate([
-        'label' => 'required',
+        request()->validate([
+            'label' => 'required',
 
-    ]);
+        ]);
 
-      laboratory::create([  
+        Laboratory::create([
 
-       'label' => request('label'),
+            'label' => request('label'),
 
-   ]);
+        ]);
         return redirect()->route('laboratories.index');
     }
 
@@ -60,7 +60,7 @@ class LaboratoriesController extends Controller
      * @param  \App\Models\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function show(laboratory $laboratory)
+    public function show(Laboratory $laboratory)
     {
         //
     }
@@ -71,7 +71,7 @@ class LaboratoriesController extends Controller
      * @param  \App\Models\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function edit(laboratory $laboratory)
+    public function edit(Laboratory $laboratory)
     {
         return view('laboratories.edit', compact('laboratory'));
     }
@@ -83,23 +83,21 @@ class LaboratoriesController extends Controller
      * @param  \App\Models\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, laboratory $laboratory)
-
+    public function update(Request $request, Laboratory $laboratory)
     {
 
-      request()->validate([
-        'label' => 'required',
+        request()->validate([
+            'label' => 'required',
 
         ]);
 
-
-        $laboratory->update([  
+        $laboratory->update([
 
             'label' => request('label'),
 
         ]);
 
-         return redirect()->route('laboratories.index');
+        return redirect()->route('laboratories.index');
     }
 
     /**
@@ -108,78 +106,75 @@ class LaboratoriesController extends Controller
      * @param  \App\Models\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function destroy(laboratory $laboratory)
+    public function destroy(Laboratory $laboratory)
     {
         $laboratory->delete();
 
         return redirect()->route('laboratories.index');
     }
 
-    public function kiosk(laboratory $laboratory)
+    public function kiosk(Laboratory $laboratory)
     {
-        return view ('laboratories.kiosk', compact('laboratory'));
- 
-   }
+        return view('laboratories.kiosk', compact('laboratory'));
 
-   public function storeKiosk(laboratory $laboratory)
+    }
+
+    public function storeKiosk(Laboratory $laboratory)
     {
         request()->validate([
-        'code'=>['required', 'exists:users']
+            'code' => ['required', 'exists:users'],
         ]);
 
-        $minutes=0;
+        $minutes = 0;
 
-        if(request('duration') == '15m') {
-            $minutes=15;
-        } else if(request('duration') == '30m'){
-            $minutes=30;
-        } else if(request('duration') == '1h') {
-            $minutes=60;
-        } else if(request('duration') == '2h') {
-             $minutes=120;
-        } else if(request('duration') == '3h') {
-             $minutes=180;
+        if (request('duration') == '15m') {
+            $minutes = 15;
+        } else if (request('duration') == '30m') {
+            $minutes = 30;
+        } else if (request('duration') == '1h') {
+            $minutes = 60;
+        } else if (request('duration') == '2h') {
+            $minutes = 120;
+        } else if (request('duration') == '3h') {
+            $minutes = 180;
         }
 
-        $student=User::where('code', request('code'))->first();
+        $student = User::where('code', request('code'))->first();
 
         Workshop::create([
-        'checked_in_at'=> now(),
-        'checked_out_at'=> now()->addMinutes($minutes),
-        'user_id'=> $student->id,
-        'administrator_id' => auth()->id(),
-        'scholar_group_id' => $student->scholar_group_id,
-        'laboratory_id' => $laboratory->id,
-
-
+            'checked_in_at' => now(),
+            'checked_out_at' => now()->addMinutes($minutes),
+            'user_id' => $student->id,
+            'administrator_id' => auth()->id(),
+            'scholar_group_id' => $student->scholar_group_id,
+            'laboratory_id' => $laboratory->id,
 
         ]);
         alert()->success('¡Bienvenido!');
 
         return redirect()->back();
-        
 
-   }
+    }
 
-   public function reports (){
-   $laboratories=Laboratory::pluck('label', 'id');
+    public function reports()
+    {
+        $laboratories = Laboratory::pluck('label', 'id');
 
-   if(!request()->all()){
-    return view('laboratories.reports', compact('laboratories'));
-   }
-    
-    $laboratoryVisits=Laboratory::when(request('laboratory_id'), function($query){
+        if (!request()->all()) {
+            return view('laboratories.reports', compact('laboratories'));
+        }
+
+        $laboratoryVisits = Laboratory::when(request('laboratory_id'), function ($query) {
             return $query->where('id', request('laboratory_id'));
         })
-    ->with(['workshops'=> function($query){
-        return $query->whereBetween('checked_in_at', [Carbon::parse(request('start'))->startOfDay(),Carbon::parse(request('end'))->endOfDay()])
-        
-        ->with('career');
+            ->with(['workshops' => function ($query) {
+                return $query->whereBetween('checked_in_at', [Carbon::parse(request('start'))->startOfDay(), Carbon::parse(request('end'))->endOfDay()])
 
+                    ->with('career');
 
-    }])->get();
+            }])->get();
 
-   return view('laboratories.reports', compact('laboratories', 'laboratoryVisits'));
-   }
+        return view('laboratories.reports', compact('laboratories', 'laboratoryVisits'));
+    }
 
 }
